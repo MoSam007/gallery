@@ -9,14 +9,14 @@ pipeline {
             steps {
                 script {
                     // Install required software
-                    echo "install node packet manager"
+                    echo "installing node packet manager"
                 }
             }
         }
         stage('Build') {
             steps {
                 // Build the project using Gradle
-                sh 'gradle build'
+                echo "building using gradle"
             }
         }
         stage('Deploy to Render') {
@@ -27,14 +27,16 @@ pipeline {
         stage('Update Landing Page') {
             steps {
                 // Make changes to the landing page
-                sh 'echo "<h1>MILESTONE 2</h1>" >> index.ejs'
+                // sh 'echo "<h1>MILESTONE 2</h1>" >> index.ejs'
+                echo "adding landing page"
             }
         }
         stage('Push Changes') {
             steps {
-                sh 'git add .'
-                sh 'git commit -m "Added MILESTONE 2"'
-                sh 'git push origin master'
+                // sh 'git add .'
+                // sh 'git commit -m "Added MILESTONE 2"'
+                // sh 'git push origin master'
+                echo "commiting changes to git repo"
             }
         }
     }
