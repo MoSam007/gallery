@@ -8,7 +8,7 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 script {
-                    // Check if required software is available
+                    // Install required software
                     sh 'npm install'
                 }
             }
