@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script {
                     // Install required software
-                    sh 'npm install'
+                    sh '/usr/bin/npm npm install'
                 }
             }
         }
