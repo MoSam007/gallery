@@ -8,7 +8,8 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 script {
-                    echo "installing node packet manager"
+                    sh 'sudo apt-get install -y gradle default-jdk mongodb'
+                    sh 'npm install'
                 }
             }
         }
