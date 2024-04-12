@@ -8,14 +8,12 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 script {
-                    // Install required software
                     echo "installing node packet manager"
                 }
             }
         }
         stage('Build') {
             steps {
-                // Build the project using Gradle
                 echo "building using gradle"
             }
         }
