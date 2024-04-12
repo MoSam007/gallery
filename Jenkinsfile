@@ -5,17 +5,21 @@ pipeline {
     }
 
     stages {
+        stage ('Clone Repository'){
+            steps{
+                git branch: 'master', url: 'https://github.com/MoSam007/gallery'
+            }
+        }
         stage('Prepare Environment') {
             steps {
                 script {
-                    sh 'sudo apt-get install -y gradle default-jdk mongodb'
-                    sh 'npm install'
+                    sh 'npm --version'
                 }
             }
         }
         stage('Build') {
             steps {
-                echo "building using gradle"
+                sh 'gradle build'
             }
         }
         stage('Deploy to Render') {
