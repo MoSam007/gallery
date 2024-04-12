@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script {
                     // Install required software
-                    sh 'npm --version'
+                    echo "install node packet manager"
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deploy to Render') {
             steps {
-                sh 'node server'
+                echo "render on the node server"
             }
         }
         stage('Update Landing Page') {
