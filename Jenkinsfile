@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script {
                     // Check if required software is available
-                    sh 'npm --version'
+                    sh 'npm install'
                 }
             }
         }
