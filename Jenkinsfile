@@ -8,7 +8,7 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 script {
-                    // check if required software is available
+                    // Check if required software is available
                     sh 'npm --version'
                 }
             }
@@ -21,7 +21,6 @@ pipeline {
         }
         stage('Deploy to Render') {
             steps {
-                // Deploy to Render (assuming you have Render CLI configured)
                 sh 'node server'
             }
         }
@@ -33,7 +32,6 @@ pipeline {
         }
         stage('Push Changes') {
             steps {
-                // Commit and push changes
                 sh 'git add .'
                 sh 'git commit -m "Added MILESTONE 2"'
                 sh 'git push origin master'
