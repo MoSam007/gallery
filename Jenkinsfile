@@ -23,7 +23,6 @@ pipeline {
                 sh 'npm install'
             }
         }
-        }
         
         stage('Build') {
             steps {
@@ -45,6 +44,5 @@ pipeline {
                 echo "updating landing page for milestone 2"
             }
         }
-        
-    }
+    }  
 }
