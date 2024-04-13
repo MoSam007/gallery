@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools{
         gradle 'gradle'
+        npm 'npm'
     }
 
     stages {
@@ -13,20 +14,28 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 script {
-                    try {
-                        sh 'npm --version'
-                    } catch (Exception e) {
-                        // Handle the error if npm is not installed
-                        echo "NPM is not installed, installing..."
-                        sh 'curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -'
-                        sh 'sudo apt-get install -y nodejs'
-                    }
+                    sh 'npm install'
                 }
             }
         }
         stage('Build') {
             steps {
                 sh 'gradle build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+            post {
+                failure {
+                    // Send email notification on test failure
+                    emailtext (
+                        subject: "Pipeline Failed: ${env.JOB_NAME}",
+                        body: "The pipeline ${env.JOB_NAME} has failed. Please check the Jenkins console output for more details.",
+                        to: "samato.moma@gmail.com",
+                    )
+                }
             }
         }
         stage('Deploy to Render') {
