@@ -12,17 +12,24 @@ pipeline {
         }
         stage('Prepare Environment') {
             steps {
+                environment {
+                  OUTPUT_PATH = './package-lock.json/'
+                }
                 script {
                     sh 'npm install'
                 }
             }
         }
         stage('Build') {
+            
             steps {
                 sh 'gradle build'
             }
         }
         stage('Test') {
+            environment{
+                OUTPUT_PATH = './test/'
+            }
             steps {
                 sh 'npm test'
             }
