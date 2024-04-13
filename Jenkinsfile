@@ -13,7 +13,14 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 script {
-                    sh 'npm --version'
+                    try {
+                        sh 'npm --version'
+                    } catch (Exception e) {
+                        // Handle the error if npm is not installed
+                        echo "NPM is not installed, installing..."
+                        sh 'curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -'
+                        sh 'sudo apt-get install -y nodejs'
+                    }
                 }
             }
         }
