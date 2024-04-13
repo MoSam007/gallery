@@ -1,3 +1,8 @@
+def COLOR_MAP = [
+    'FAILURE' : 'danger'
+    'SUCCESS' : 'good'
+]
+
 pipeline {
     agent any
     tools{
@@ -56,26 +61,26 @@ pipeline {
         }
 
         stage('Deploy to heroku') {
-            environment {
-                HEROKU_USERNAME = credentials('heroku_username')
-                HEROKU_PASSWORD = credentials('heroku_password')
-            }
             steps {
-                sh 'git config --global credential.helper store' // This stores the credentials securely
-                sh 'git push https://${HEROKU_USERNAME}:${HEROKU_PASSWORD}@git.heroku.com/quiet-oasis-85797.git'
-            }
-        } 
+                // withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
+                    // sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/quiet-oasis-85797.git master'
+                 echo "Successful deployment"
 
-        stage('Slack Notification'){
-            steps{
-                slackSend baseUrl: 'https://hooks.slack.com/services/', 
-                channel: 'sam-ip1', 
-                color: 'good', 
-                message: 'Gallery app successful deploy. started ${env.JOB_NAME} ${env.BUILD_NUMBER} (${env.BUILD_URL}|Open)', 
-                tokenCredentialId: 'Ip1-demo', 
-                username: 'sam-ip1'
             }
+            post {
+                always {
+                    echo 'Slack Notification'
+                    slackSend(
+                        channel: '#sam-ip1',
+                        color: COLOR_MAP[currentBuild.currentResult],
+                        message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} \n 
+                           build ${env.BUILD_NUMBER} \n
+                           more info at: ${env.BUILD_URL}"
+                    )
+                }
+            }    
         }
+
     } 
         
 }
