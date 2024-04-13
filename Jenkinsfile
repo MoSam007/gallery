@@ -8,6 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
+                    git branch: 'master', url: 'https://github.com/MoSam007/gallery.git'
                     sh "npm --version"
                 }
             }
@@ -16,7 +17,7 @@ pipeline {
         stage('Update Landing Page') {
             steps {
                 // Make changes to the landing page
-                sh 'echo "<h1>MILESTONE 2</h1>" >> index.ejs'
+                sh 'echo "<h1>MILESTONE 2</h1>" >> views/index.ejs'
                 
             }
         }
