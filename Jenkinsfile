@@ -49,9 +49,29 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'node server'
+                // sh 'node server'
+                echo "Successful deploy"
             }
         } 
+
+        stage('Update Landing Page 2') {
+            steps {
+                // Make changes to the landing page
+                sh 'echo "<h1>MILESTONE 3</h1>" >> index.ejs'
+                
+            }
+        }
+
+        stage('Slack Notification'){
+            steps{
+                slackSend baseUrl: 'https://hooks.slack.com/services/', 
+                channel: 'sam-ip1', 
+                color: 'good', 
+                message: 'Welcome to IP1!', 
+                tokenCredentialId: 'Ip1-demo', 
+                username: 'samip1'
+            }
+        }
     } 
         
 }
