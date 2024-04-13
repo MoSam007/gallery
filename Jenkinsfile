@@ -5,7 +5,7 @@ pipeline {
     }
 
     stages {
-        stage('Prepare Environment') {
+        stage('Build') {
             steps {
                 script {
                     sh "install npm"
@@ -13,7 +13,7 @@ pipeline {
             }
         }
         
-        stage('Deploy to Render') {
+        stage('Render') {
             steps {
                 sh 'node server'
             }
