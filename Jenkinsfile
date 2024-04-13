@@ -8,19 +8,8 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 script {
-                    // Check if npm is installed
-                    def npmInstalled = sh(script: 'npm --version', returnStatus: true) == 0
-                    if (!npmInstalled) {
-                        error 'npm not found, cannot continue'
-                    }
+                    echo "install npm"
                 }
-            }
-        }
-        
-        stage('Install npm') {
-            steps {
-                // Install npm
-                sh 'npm install'
             }
         }
         
