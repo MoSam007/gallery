@@ -5,64 +5,46 @@ pipeline {
     }
 
     stages {
-        stage ('Clone Repository'){
-            steps{
-                git branch: 'master', url: 'https://github.com/MoSam007/gallery'
-            }
-        }
         stage('Prepare Environment') {
             steps {
-                environment {
-                  OUTPUT_PATH = './package-lock.json/'
-                }
                 script {
-                    sh 'npm install'
+                    // Check if npm is installed
+                    def npmInstalled = sh(script: 'npm --version', returnStatus: true) == 0
+                    if (!npmInstalled) {
+                        error 'npm not found, cannot continue'
+                    }
                 }
             }
         }
-        stage('Build') {
-            
+        
+        stage('Install npm') {
             steps {
+                // Install npm
+                sh 'npm install'
+            }
+        }
+        }
+        
+        stage('Build') {
+            steps {
+                sh 'gradle init'
                 sh 'gradle build'
             }
         }
-        stage('Test') {
-            environment{
-                OUTPUT_PATH = './test/'
-            }
-            steps {
-                sh 'npm test'
-            }
-            post {
-                failure {
-                    // Send email notification on test failure
-                    emailtext (
-                        subject: "Pipeline Failed: ${env.JOB_NAME}",
-                        body: "The pipeline ${env.JOB_NAME} has failed. Please check the Jenkins console output for more details.",
-                        to: "samato.moma@gmail.com",
-                    )
-                }
-            }
-        }
+        
         stage('Deploy to Render') {
             steps {
-                echo "render on the node server"
+                sh 'node server'
             }
         }
+        
         stage('Update Landing Page') {
             steps {
                 // Make changes to the landing page
-                // sh 'echo "<h1>MILESTONE 2</h1>" >> index.ejs'
+                sh 'echo "<h1>MILESTONE 2</h1>" >> index.ejs'
                 echo "updating landing page for milestone 2"
             }
         }
-        stage('Push Changes') {
-            steps {
-                // sh 'git add .'
-                // sh 'git commit -m "Added MILESTONE 2"'
-                // sh 'git push origin master'
-                echo "commiting changes to github repository"
-            }
-        }
+        
     }
 }
