@@ -1,14 +1,14 @@
 pipeline {
     agent any
     tools{
-        gradle 'gradle'
+        nodejs 'node'
     }
 
     stages {
         stage('Prepare Environment') {
             steps {
                 script {
-                    echo "install npm"
+                    sh "install npm"
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 // Make changes to the landing page
                 sh 'echo "<h1>MILESTONE 2</h1>" >> index.ejs'
-                echo "updating landing page for milestone 2"
+                
             }
         }
     }  
