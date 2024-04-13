@@ -3,6 +3,10 @@ pipeline {
     tools{
         nodejs 'node'
     }
+    environment {
+        HEROKU_USERNAME = credentials('heroku_username')
+        HEROKU_PASSWORD = credentials('heroku_password')
+    }
 
     stages {
         stage('Build') {
@@ -57,9 +61,8 @@ pipeline {
 
         stage('Deploy to heroku') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'heroku', usernameVariable: 'HEROKU_USERNAME', passwordVariable: 'HEROKU_PASSWORD')]) {
-                    sh "git push https://${HEROKU_USERNAME}:${HEROKU_PASSWORD}@git.heroku.com/quiet-oasis-85797.git"
-                }    
+                sh 'git config --global credential.helper store' // This stores the credentials securely
+                sh 'git push https://${HEROKU_USERNAME}:${HEROKU_PASSWORD}@git.heroku.com/quiet-oasis-85797.git'
             }
         } 
 
