@@ -9,6 +9,7 @@ pipeline {
             steps {
                 script {
                     git branch: 'master', url: 'https://github.com/MoSam007/gallery.git'
+                    sh "npm install"
                     sh "npm --version"
                 }
             }
