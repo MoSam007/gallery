@@ -68,8 +68,9 @@ pipeline {
                 slackSend baseUrl: 'https://hooks.slack.com/services/', 
                 channel: 'sam-ip1', 
                 color: 'good', 
-                message: 'Gallery app successful deploy.' 'Started' ${env.JOB_NAME} ${env.BUILD_NUMBER} (${env.BUILD_URL}|Open), 
-                tokenCredentialId: 'Ip1-demo', username: 'sam-ip1'
+                message: 'Gallery app successful deploy. started ${env.JOB_NAME} ${env.BUILD_NUMBER} (${env.BUILD_URL}|Open)', 
+                tokenCredentialId: 'Ip1-demo', 
+                username: 'sam-ip1'
             }
         }
     } 
