@@ -54,10 +54,10 @@ pipeline {
             }
         } 
 
-        stage('Update Landing Page 2') {
+        stage('Update Landing Page 3') {
             steps {
                 // Make changes to the landing page
-                sh 'echo "<h1>MILESTONE 3</h1>" >> index.ejs'
+                sh 'echo "<h1>MILESTONE 4</h1>" >> index.ejs'
                 
             }
         }
