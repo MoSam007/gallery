@@ -1,13 +1,13 @@
 {
   "name": "dark-room",
   "version": "1.0.0",
-  "description": "npm",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "mocha --exit"
   },
-  "keywords": ["npm", "npm install"],
-  "author": "Sam Momanyi",
+  "keywords": ["npm"],
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
