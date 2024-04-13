@@ -13,13 +13,6 @@ pipeline {
             }
         }
         
-        stage('Build') {
-            steps {
-                sh 'gradle init'
-                sh 'gradle build'
-            }
-        }
-        
         stage('Deploy to Render') {
             steps {
                 sh 'node server'
