@@ -46,15 +46,21 @@
         <hr>
         <br>
         
-          <div class="row">
-            <% images.forEach(function(image){ %>
-
+        <div class="row">
+          <% if (images && images.length) { %>
+            <% images.forEach(function(image) { %>
               <div class="column">
-
-                <a href="/image/<%= image._id %>"> <img src="<%= image.path %>" class="responsive-img" alt="<%= image.name %>"> </a>
+                <a href="/image/<%= image._id %>">
+                  <img src="<%= image.path %>" class="responsive-img" alt="<%= image.name %>">
+                </a>
               </div>
-            <% }); %>  
-          </div>
+            <% }); %>
+          <% } else { %>
+            <p>No images found</p>
+          <% } %>
+        </div>
+        
+          
             
               
             
