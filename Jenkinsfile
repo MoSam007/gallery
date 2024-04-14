@@ -57,10 +57,10 @@ pipeline {
 
         stage('Deploy to heroku') {
             steps {
-                withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
-                    sh 'sh git push https://samato:HRKU-5417f046-b89d-42be-8704-2f509b63f143@git.heroku.com/quiet-oasis-85797.git master'
-                 echo "Successful deployment on heroku app"
-                }
+                sh 'git add .'
+                sh 'git commit - m "Deploy to heroku" '
+                sh 'git push heroku master'
+                echo "Successful deployment on heroku app"
             }
             post {
                 always {
@@ -71,7 +71,7 @@ pipeline {
                         message: "*${currentBuild.currentResult}:* \n Job: ${env.JOB_NAME} \n Build: ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
                     )
                 }
-            }    
+            }
         }
 
     } 
