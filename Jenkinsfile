@@ -3,23 +3,21 @@ pipeline {
     tools{
         nodejs 'node'
     }
+    environment {
+        HEROKU_APP_NAME = 'quiet-oasis-85797'
+        HEROKU_CREDENTIALS = credentials('HEROKU_CREDENTIALS')
+        HEROKU_GIT_URL = 'https://git.heroku.com/quiet-oasis-85797.git'
+    }
 
     stages {
         stage('Build') {
             steps {
                 script {
                     git branch: 'master', url: 'https://github.com/MoSam007/gallery.git'
+                    git branch: 'master', url: HEROKU_GIT_URL
                     sh "npm install"
                     sh "npm --version"
                 }
-            }
-        }
-        
-        stage('Update Landing Page') {
-            steps {
-                // Make changes to the landing page
-                sh 'echo "<h1>MILESTONE 2</h1>" >> ./views/index.ejs'
-                
             }
         }
 
@@ -39,28 +37,12 @@ pipeline {
             }
         }
 
-        stage('Update Landing Page 2') {
-            steps {
-                // Make changes to the landing page
-                sh 'echo "<h1>MILESTONE 3</h1>" >> ./views/index.ejs'
-                
-            }
-        }
-
-        stage('Update Landing Page 3') {
-            steps {
-                // Make changes to the landing page
-                sh 'echo "<h1>MILESTONE 4</h1>" >> ./views/index.ejs'
-                
-            }
-        }
-
         stage('Deploy to heroku') {
             steps {
-                sh 'git add .'
-                sh 'git commit - m "Deploy to heroku" '
-                sh 'git push heroku master'
-                echo "Successful deployment on heroku app"
+                 script {
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: HEROKU_CREDENTIALS, usernameVariable: 'HEROKU_EMAIL', passwordVariable: 'HEROKU_API_KEY']]) {
+                        sh "git push https://$HEROKU_EMAIL:$HEROKU_API_KEY@$HEROKU_GIT_URL HEAD:master"
+                    }
             }
             post {
                 always {
