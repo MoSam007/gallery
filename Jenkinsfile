@@ -1,7 +1,3 @@
-def COLOR_MAP[
-    'FAILURE' : 'danger',
-    'SUCCESS' : 'good'
-]
 pipeline {
     agent any
     tools{
@@ -62,7 +58,7 @@ pipeline {
         stage('Deploy to heroku') {
             steps {
                 withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
-                    sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/quiet-oasis-85797.git master'
+                    sh 'sh git push https://samato:HRKU-5417f046-b89d-42be-8704-2f509b63f143@git.heroku.com/mighty-earth-27385.git master'
                  echo "Successful deployment on heroku app"
                 }
             }
@@ -71,7 +67,7 @@ pipeline {
                     echo 'Slack Notification'
                     slackSend(
                         channel: '#sam-ip1',
-                        color: COLOR_MAP[currentBuild.currentResult],
+                        color: 'good',
                         message: "*${currentBuild.currentResult}:* \n Job: ${env.JOB_NAME} \n Build: ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
                     )
                 }
