@@ -57,8 +57,8 @@ pipeline {
 
         stage('Deploy to heroku') {
             steps {
-                // withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
-                    // sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/quiet-oasis-85797.git master'
+                withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
+                    sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/quiet-oasis-85797.git master'
                  echo "Successful deployment on heroku"
 
             }
