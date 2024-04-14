@@ -1,7 +1,3 @@
-def COLOR_MAP = [
-    'FAILURE' : 'danger'
-]
-
 pipeline {
     agent any
     tools{
@@ -71,7 +67,7 @@ pipeline {
                     echo 'Slack Notification'
                     slackSend(
                         channel: '#sam-ip1',
-                        color: COLOR_MAP[currentBuild.currentResult],
+                        color: 'good'[currentBuild.currentResult],
                         message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} \n build ${env.BUILD_NUMBER} \n more info at: ${env.BUILD_URL}"
                     )
                 }
