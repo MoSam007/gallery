@@ -7,6 +7,8 @@ pipeline {
         HEROKU_APP_NAME = 'quiet-oasis-85797'
         HEROKU_CREDENTIALS = credentials('HEROKU_CREDENTIALS')
         HEROKU_GIT_URL = 'https://git.heroku.com/quiet-oasis-85797.git'
+        HEROKU_API_KEY = credentials('HEROKU_API_KEY')
+        HEROKU_EMAIL = credentials('HEROKU_EMAIL')
     }
 
     stages {
