@@ -58,7 +58,7 @@ pipeline {
         stage('Deploy to heroku') {
             steps {
                 withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
-                    sh 'sh git push https://samato:HRKU-5417f046-b89d-42be-8704-2f509b63f143@git.heroku.com/mighty-earth-27385.git master'
+                    sh 'sh git push https://samato:HRKU-5417f046-b89d-42be-8704-2f509b63f143@git.heroku.com/quiet-oasis-85797.git master'
                  echo "Successful deployment on heroku app"
                 }
             }
