@@ -68,7 +68,7 @@ pipeline {
                     slackSend(
                         channel: '#sam-ip1',
                         color: 'good',
-                        message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} \n build ${env.BUILD_NUMBER} \n more info at: ${env.BUILD_URL}"
+                        message: "*${currentBuild.currentResult}:* \n Job: ${env.JOB_NAME} \n Build: ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
                     )
                 }
             }    
