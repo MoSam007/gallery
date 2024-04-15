@@ -44,7 +44,7 @@ pipeline {
                  script {
                     // withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: HEROKU_CREDENTIALS, usernameVariable: 'HEROKU_EMAIL', passwordVariable: 'HEROKU_API_KEY']]) {
                     // sh "git push https://$HEROKU_EMAIL:$HEROKU_API_KEY@$HEROKU_GIT_URL HEAD:master"
-                    echo "successful heroku deployment"
+                    echo "successful herok deployment"
 
                     }
                  }
